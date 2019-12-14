@@ -35,21 +35,8 @@ for v in range(98, len(titles_href)):
     directors = driver.find_elements_by_class_name('credit_summary_item')[0].text.split(': ')[1]
     writers = driver.find_elements_by_class_name('credit_summary_item')[1].text.split(': ')[1]
     stars = driver.find_elements_by_class_name('credit_summary_item')[2].text.split(': ')[1]
-    try:
-        metascore = driver.find_element_by_class_name('metacriticScore').text
-        reviews = driver.find_elements_by_class_name('subText')[1].text.split(' ')[0]
-        critics = driver.find_elements_by_class_name('subText')[1].text.split(' ')[3]
-        popularity = driver.find_elements_by_class_name('subText')[2].text.split(' ')[0]
-    except:
-        reviews = driver.find_element_by_class_name('titleReviewBar').text.split('\n')[1].split(' ')[0]
-        critics = driver.find_element_by_class_name('titleReviewBar').text.split('\n')[1].split(' ')[3]
-        try:
-            popularity = driver.find_element_by_class_name('titleReviewBar').text.split('\n')[3].split(' ')[0]
-        except:
-            pass
-    new = ((title, rating_value, rating_count, rated, duration, genre, date, country, summary, directors, writers,
-            stars, metascore, reviews, critics, popularity))
+    new = ((title, rating_value, rating_count, rated, duration, genre, date, country, summary, directors, writers, stars))
     total.append(new)
 
 df = pd.DataFrame(total, columns=['title', 'rating_value', 'rating_count', 'rated', 'duration', 'genre', 'date', 'country', 
-                                  'summary', 'directors', 'writers','stars', 'metascore', 'reviews', 'critics', 'popularity'])
+                                  'summary', 'directors', 'writers','stars'])
