@@ -22,7 +22,7 @@ for v in range(len(titles)):
     
 total = []
 for v in range(len(titles_href)):
-    driver.get(titles_href[v])
+    driver.get(titles_href[49])
     title = driver.find_element_by_xpath('//*[@id="title-overview-widget"]/div[1]/div[2]/div/div[2]/div[2]/h1').text.split('(')[0]
     rating_value = driver.find_element_by_xpath('//*[@id="title-overview-widget"]/div[1]/div[2]/div/div[1]/div[1]/div[1]/strong/span').text
     rating_count = driver.find_element_by_xpath('//*[@id="title-overview-widget"]/div[1]/div[2]/div/div[1]/div[1]/a/span').text
@@ -35,10 +35,15 @@ for v in range(len(titles_href)):
     directors = driver.find_elements_by_class_name('credit_summary_item')[0].text.split(': ')[1]
     writers = driver.find_elements_by_class_name('credit_summary_item')[1].text.split(': ')[1]
     stars = driver.find_elements_by_class_name('credit_summary_item')[2].text.split(': ')[1]
-    metascore = driver.find_element_by_class_name('metacriticScore').text
-    reviews = driver.find_elements_by_class_name('subText')[1].text.split(' ')[0]
-    critics = driver.find_elements_by_class_name('subText')[1].text.split(' ')[3]
-    popularity = driver.find_elements_by_class_name('subText')[2].text.split(' ')[0]
+    try:
+        metascore = driver.find_element_by_class_name('metacriticScore').text
+        reviews = driver.find_elements_by_class_name('subText')[1].text.split(' ')[0]
+        critics = driver.find_elements_by_class_name('subText')[1].text.split(' ')[3]
+        popularity = driver.find_elements_by_class_name('subText')[2].text.split(' ')[0]
+    except:
+        reviews = driver.find_element_by_class_name('titleReviewBar').text.split('\n')[1].split(' ')[0]
+        critics = driver.find_element_by_class_name('titleReviewBar').text.split('\n')[1].split(' ')[3]
+        popularity = driver.find_element_by_class_name('titleReviewBar').text.split('\n')[3].split(' ')[0]
     new = ((title, rating_value, rating_count, rated, duration, genre, date, country, summary, directors, writers,
             stars, metascore, reviews, critics, popularity))
     total.append(new)
